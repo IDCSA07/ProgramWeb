@@ -8,7 +8,7 @@ function deleteLast(value){
     let displayValue = document.getElementById('display').value;
     document.getElementById('display').value = displayValue.slice(0, -1);
 }
-function appenToDisplay(value){
+function calculateResult(value){
     try{
         let result =eval(document.getElementById('display').value);
         document.getElementById('display').value = result;
