@@ -9,10 +9,10 @@ function deleteLast(value){
     document.getElementById('display').value = displayValue.slice(0, -1);
 }
 function calculateResult(value){
-    try{
-        let result =eval(document.getElementById('display').value);
+    try {
+        let result = eval(document.getElementById('display').value);
         document.getElementById('display').value = result;
-    }catch {
+    } catch (error) {
         alert('Expresion invalida');
     }
     
