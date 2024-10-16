@@ -86,9 +86,16 @@ const user ={
 //consola amigos 
 
 
-console.log("Juan Pérez Zetina");
-alert("El usuario está activo");
-console.log('edad: ', 25);
-alert("Calle Reforma");
-console.log("Carlos", "María", "Ana", "Luis");
+let nombreCompleto = "Juan Pérez";
+let activo = false;
+let edad = 25;
+let calle = "Calle Reforma";
+let amigos = ["Carlos", "María", "Ana", "Luis"];
+
+console.log(nombreCompleto);
+alert(activo ? "El usuario está activo" : "El usuario está inactivo");
+console.log(edad);
+alert(calle);
+console.log(amigos);
+
 
