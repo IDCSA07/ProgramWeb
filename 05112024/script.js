@@ -1,91 +1,95 @@
-// Selecciona el contenedor principal donde agregaremos los elementos
+// Crear contenedor principal
 const app = document.getElementById('app');
+const mainContainer = document.createElement('div');
 
-// Crea el campo de selección de color
-const inputColor = document.createElement('input');
-inputColor.type = 'color';
-inputColor.value = '#ff5733'; // Valor inicial del color
-inputColor.style.marginRight = '10px';
+app.appendChild(mainContainer);
 
-// Crea el botón que generará el contenedor con el color seleccionado
-const botonCrearConColor = document.createElement('button');
-botonCrearConColor.innerText = 'Crear Contenedor con Color';
-botonCrearConColor.style.padding = '10px 15px';
-botonCrearConColor.style.backgroundColor = '#4CAF50';
-botonCrearConColor.style.color = 'white';
-botonCrearConColor.style.border = 'none';
-botonCrearConColor.style.borderRadius = '5px';
-botonCrearConColor.style.cursor = 'pointer';
+// Función para crear el formulario
+const createForm = () => {
+    const form = document.createElement('form');
 
-// Función para crear el contenedor con el color seleccionado
-const crearContenedorConColor = () => {
-    // Verifica si el contenedor ya existe para evitar múltiples creaciones
-    if (document.getElementById('contenedor-dinamico')) {
-        alert('El contenedor ya ha sido creado.');
-        return;
-    }
+    // Campo para el nombre
+    const nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.placeholder = 'Nombre';
+    nameInput.required = true;
+    form.appendChild(nameInput);
 
-    // Crea el contenedor y aplica el color seleccionado como fondo
-    const contenedorDinamico = document.createElement('div');
-    contenedorDinamico.id = 'contenedor-dinamico';
-    contenedorDinamico.style.width = '300px';
-    contenedorDinamico.style.height = '200px';
-    contenedorDinamico.style.backgroundColor = inputColor.value;
-    contenedorDinamico.style.border = '2px solid #ddd';
-    contenedorDinamico.style.borderRadius = '10px';
-    contenedorDinamico.style.display = 'flex';
-    contenedorDinamico.style.alignItems = 'center';
-    contenedorDinamico.style.justifyContent = 'center';
-    contenedorDinamico.style.marginTop = '20px';
+    // Campo para la ocupación
+    const occupationInput = document.createElement('input');
+    occupationInput.type = 'text';
+    occupationInput.placeholder = 'Ocupación';
+    occupationInput.required = true;
+    form.appendChild(occupationInput);
 
-    // Texto dentro del contenedor
-    const textoContenedor = document.createElement('p');
-    textoContenedor.innerText = 'Contenedor con color personalizado';
-    textoContenedor.style.color = '#333';
+    // Selector de color
+    const colorInput = document.createElement('input');
+    colorInput.type = 'color';
+    form.appendChild(colorInput);
 
-    // Añadir el texto al contenedor y el contenedor al DOM
-    contenedorDinamico.appendChild(textoContenedor);
-    app.appendChild(contenedorDinamico);
+    // Botón de guardar
+    const saveButton = document.createElement('button');
+    saveButton.type = 'button';
+    saveButton.innerText = 'Guardar';
+    saveButton.style.cursor = 'pointer';
+
+    // Evento para crear tarjeta
+    saveButton.addEventListener('click', () => {
+        const name = nameInput.value.trim();
+        const occupation = occupationInput.value.trim();
+        const color = colorInput.value;
+
+        if (name && occupation) {
+            createCard(name, occupation, color);
+            form.reset(); // Limpiar el formulario
+        }
+    });
+
+    form.appendChild(saveButton);
+    mainContainer.appendChild(form);
 };
 
-// Crea el botón que al hacer clic generará el contenedor
-const botonCrearContenedor = document.createElement('button');
-botonCrearContenedor.innerText = 'Crear Contenedor con Color';
-botonCrearContenedor.style.padding = '10px 15px';
-botonCrearContenedor.style.backgroundColor = '#4CAF50';
-botonCrearContenedor.style.color = 'white';
-botonCrearContenedor.style.border = 'none';
-botonCrearContenedor.style.borderRadius = '5px';
-botonCrearContenedor.style.cursor = 'pointer';
+// Función para crear una tarjeta
+const createCard = (name, occupation, color) => {
+    const card = document.createElement('div');
+    card.style.backgroundColor = color;
+    card.style.padding = '20px';
+    card.style.borderRadius = '8px';
+    card.style.boxShadow = '0px 4px 6px rgba(0, 0, 0, 0.1)';
+    card.style.marginTop = '10px';
 
-// Crea el botón que al hacer clic eliminará el contenedor
-const botonEliminarContenedor = document.createElement('button');
-botonEliminarContenedor.innerText = 'Eliminar Contenedor';
-botonEliminarContenedor.style.padding = '10px 15px';
-botonEliminarContenedor.style.backgroundColor = '#f44336';
-botonEliminarContenedor.style.color = 'white';
-botonEliminarContenedor.style.border = 'none';
-botonEliminarContenedor.style.borderRadius = '5px';
-botonEliminarContenedor.style.cursor = 'pointer';
-botonEliminarContenedor.style.marginLeft = '10px';
-botonEliminarContenedor.style.display = 'none'; // Oculto inicialmente
+    // Añadir el nombre y ocupación
+    const nameElement = document.createElement('h3');
+    nameElement.innerText = name;
+    nameElement.style.margin = '0';
 
-// Función para eliminar el contenedor
-const eliminarContenedor = () => {
-    const contenedorDinamico = document.getElementById('contenedor-dinamico');
-    if (contenedorDinamico) {
-        app.removeChild(contenedorDinamico);
-        botonEliminarContenedor.style.display = 'none'; // Oculta el botón de eliminar
-    } else {
-        alert('No hay contenedor para eliminar.');
-    }
+    const occupationElement = document.createElement('p');
+    occupationElement.innerText = occupation;
+    occupationElement.style.margin = '5px 0';
+
+    // Botón de eliminar
+    const deleteButton = document.createElement('button');
+    deleteButton.innerText = 'Eliminar';
+    deleteButton.style.marginTop = '10px';
+    deleteButton.style.padding = '5px 10px';
+    deleteButton.style.border = 'none';
+    deleteButton.style.borderRadius = '5px';
+    deleteButton.style.cursor = 'pointer';
+    deleteButton.style.backgroundColor = '#f44336';
+    deleteButton.style.color = '#fff';
+
+    deleteButton.addEventListener('click', () => {
+        mainContainer.removeChild(card);
+    });
+
+    // Agregar elementos a la tarjeta
+    card.appendChild(nameElement);
+    card.appendChild(occupationElement);
+    card.appendChild(deleteButton);
+
+    // Añadir la tarjeta al contenedor principal
+    mainContainer.appendChild(card);
 };
 
-// Asigna las funciones a los eventos de clic de los botones
-botonCrearContenedor.onclick = crearContenedorConColor;
-botonEliminarContenedor.onclick = eliminarContenedor;
-
-// Agrega los botones al DOM
-app.appendChild(inputColor);
-app.appendChild(botonCrearContenedor);
-app.appendChild(botonEliminarContenedor);
+// Llamada a la función para crear el formulario
+createForm();
